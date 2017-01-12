@@ -9,7 +9,7 @@ Each tagged version can be considered stable (at least I do). I have no release 
 
 # Usage
 
-As often (always ?) mpm lets you order your passwords in sections and gicing them identifiers to easily create and fetch them. All of your data is stored (encrypted) under "$HOME/.mpm".
+As often (always ?) mpm lets you order your passwords in sections and giving them identifiers to easily create and fetch them. All of your data is stored (encrypted) under "$HOME/.mpm".
 
 ```
 mpm is a CLI password manager made to handle all of your passwords.
@@ -28,11 +28,11 @@ Available Commands:
 Use "mpm [command] --help" for more information about a command.
 ```
 
-Well, documentation says it all, you can create a storage, add passwords in it (sections are lazily initialized), copy it to clipboard, list sections, passwords of a section, or all the content of the storage (password do not appear, only the name you gace them) and finally change your master password. KISS to you too.
+Well, documentation says it all, you can create a storage, add passwords in it (sections are lazily initialized), copy it to clipboard, list sections, passwords of a section, or all the content of the storage (passwords do not appear, only the name you gave them) and finally change your master password. KISS to you too.
 
 # Cryptography
 
-A bcrypt hash (cost 10) of your master password is stored in your data file and used to check for validity. The secret key used to encrypt your password is derived from your master password using the SAH512\_256 hash function. This provides a 32 byte strings which is used as a secret key to encrypt your passwords using AES-256 in CTR mode. Encrypted password are finally encoded in base64 to make them printable to your data file.
+A bcrypt hash (cost 10) of your master password is stored in your data file and used to check for validity. The secret key used to encrypt your password is derived from your master password using the SAH512\_256 hash function. This provides a 32-byte string which is used as a secret key to encrypt your passwords using AES-256 in CTR mode. Encrypted password are finally encoded in base64 to make them printable to your data file.
 
 # Libraries
 
@@ -53,3 +53,4 @@ Here are some functionalities I'd like to implement in the (maybe VERY distant) 
 - Authenticate the data file's content (no unwanted modification), one way or another.
 - Make a tiny graphical client.
 - Ability to synchronize a storage between several machines (would be great and amazing, but requires good design).
+- Ability to import an existing password.
