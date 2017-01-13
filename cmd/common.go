@@ -81,26 +81,48 @@ func updateStore(context map[string]interface{}) (string, int) {
 	return "\nEverything went well !", 0
 }
 
-// Prompts for a new passphrase. On success, it is stored on the context under 'newPassword'.
-func createPassphrase(context map[string]interface{}) (string, int) {
-	fmt.Printf("Enter your new passphrase: ")
-	pass1, err := gopass.GetPasswd()
-	if err != nil {
-		return fmt.Sprintf("An error occurred !\n%s", err), 1
+// Prompts for a new passphrase or password, depending on the dialog provided. On success, it is stored on the context under 'newPass'.
+// The argument should contain the two text messages two display, then an error message to throw in case of mismatch
+func createPass(dialogs [3]string) nodeFunc {
+	return func(context map[string]interface{}) (string, int) {
+		fmt.Printf(dialogs[0])
+		pass1, err := gopass.GetPasswd()
+		if err != nil {
+			return fmt.Sprintf("An error occurred !\n%s", err), 1
+		}
+
+		fmt.Printf(dialogs[1])
+		pass2, err := gopass.GetPasswd()
+		if err != nil {
+			return fmt.Sprintf("An error occurred !\n%s", err), 1
+		}
+
+		if string(pass1) != string(pass2) {
+			return dialogs[2], 1
+		}
+
+		context["newPass"] = pass1
+		return "", 0
+	}
+}
+
+// Ugly, but this is the closest that Go can provide from funtional's partial execution
+var createPassphrase nodeFunc = createPass([3]string{"Enter your new passphrase: ", "Re-enter your passphrase: ", "Passphrases mismatch !"})
+var createPassword nodeFunc = createPass([3]string{"Enter your password: ", "Re-enter your password: ", "Passwords mismatch !"})
+
+// verifyErase prompts the user if a password already exists for the provided section and name. If it exists, the user is prompted if he wants to erase it or not. Storage is required from the context
+func verifyErase(context map[string]interface{}) (string, int) {
+	msg := ""
+	storage := context["storage"].(*core.Storage)
+	if _, err := storage.Get(section, name); err == nil {
+		var answer string
+		interactS("Password exist, are you sure you want to erase it ? [y/n]\n", &answer)
+		if answer != "y" {
+			msg = "Ok, goodbye"
+		}
 	}
 
-	fmt.Printf("Re-enter your passphrase: ")
-	pass2, err := gopass.GetPasswd()
-	if err != nil {
-		return fmt.Sprintf("An error occurred !\n%s", err), 1
-	}
-
-	if string(pass1) != string(pass2) {
-		return "Passphrases do not match !", 1
-	}
-
-	context["newPassphrase"] = pass1
-	return "", 0
+	return msg, 0
 }
 
 // Simple function to chain nodes and create the actual Run function for *cobra.Command
