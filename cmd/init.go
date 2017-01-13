@@ -12,9 +12,9 @@ var initCmd = &cobra.Command{
 	Run:   chainNodes(createPassphrase, initFunc, updateStore),
 }
 
-// Requires the newPassphrase from the context, and creates a new storage with it.
+// Requires the newPass from the context, and creates a new storage with it.
 func initFunc(context map[string]interface{}) (string, int) {
-	var passphrase []byte = (context["newPassphrase"]).([]byte)
+	var passphrase []byte = (context["newPass"]).([]byte)
 
 	if _, err := core.GetStorage(); err == nil {
 		return "There is already a store !", 1

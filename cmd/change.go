@@ -15,7 +15,7 @@ var changeCmd = &cobra.Command{
 // changeFunc requires the storage, current passphrase and new passphrase to be stored in the context
 func changeFunc(context map[string]interface{}) (string, int) {
 	old := (context["passphrase"]).(string)
-	new := string((context["newPassphrase"]).([]byte))
+	new := string((context["newPass"]).([]byte))
 	var storage *core.Storage = (context["storage"]).(*core.Storage)
 
 	storage.SetNewPassphrase(old, new)

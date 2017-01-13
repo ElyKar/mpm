@@ -23,12 +23,13 @@ Available Commands:
   change      Change the master password
   get         Copy a password to your clipboard
   init        Initialize an empty store for mpm
+  import      Imports an existing password in the storage
   list        List the sections and passwords stored
 
 Use "mpm [command] --help" for more information about a command.
 ```
 
-Well, documentation says it all, you can create a storage, add passwords in it (sections are lazily initialized), copy it to clipboard, list sections, passwords of a section, or all the content of the storage (passwords do not appear, only the name you gave them) and finally change your master password. KISS to you too.
+Well, documentation says it all, you can create a storage, add passwords in it (sections are lazily initialized), copy it to clipboard, list sections, passwords of a section, or all the content of the storage (passwords do not appear, only the name you gave them) and finally change your master password. Also, you can import existing passwords, if you're tired to remember them all but don't want to change them. KISS to you too.
 
 # Cryptography
 
@@ -53,4 +54,3 @@ Here are some functionalities I'd like to implement in the (maybe VERY distant) 
 - Authenticate the data file's content (no unwanted modification), one way or another.
 - Make a tiny graphical client.
 - Ability to synchronize a storage between several machines (would be great and amazing, but requires good design).
-- Ability to import an existing password.
