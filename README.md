@@ -3,7 +3,7 @@ My Password Manager
 
 mpm is a small CLI project that I use to handle all of my passwords. A simple CLI password manager.
 
-Actual version is 0.1 and provides the core functionalities as well as cryptographically secure storage: No plain-text password or some personal crypto involved, only community-approved algorithms (bcrypt, AES-256, Go's crypto/rand for randomness).
+Actual version is 0.2 and provides the core functionalities as well as cryptographically secure storage: No plain-text password or some personal crypto involved, only community-approved algorithms (bcrypt, AES-256, Go's crypto/rand for randomness).
 
 Each tagged version can be considered stable (at least I do). I have no release plan for the project, only some features that I'd like to add. I'll implement them when I want to, when I feel particularly motivated, or when I'm in absolute need.
 
