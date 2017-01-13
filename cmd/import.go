@@ -24,3 +24,11 @@ func importFunc(context map[string]interface{}) (string, int) {
 	storage.Set(section, name, string(encoded))
 	return "", 0
 }
+
+func init() {
+	importCmd.Flags().StringVar(&section, "section", "", "The section to add the imported password")
+	importCmd.Flags().StringVar(&name, "name", "", "A name for your the imported password")
+
+	RootCmd.AddCommand(importCmd)
+
+}
