@@ -17,7 +17,7 @@ func importFunc(context map[string]interface{}) (string, int) {
 	var storage *core.Storage = (context["storage"]).(*core.Storage)
 
 	// Assert we won't erase a password
-	password := context["newPass"].(string)
+	password := string(context["newPass"].([]byte))
 	encoder := core.NewTranscoder(context["passphrase"].(string))
 	encoded, _ := encoder.EncodePassword(password)
 
